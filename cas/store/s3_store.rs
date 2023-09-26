@@ -39,6 +39,13 @@ use rusoto_signature::signature::SignedRequest;
 
 //AWS SDK Replacements
 use aws_config::default_provider::credentials::default_provider;
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+//use aws_sdk_s3;
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_s3::error::SdkError;
+use aws_sdk_s3::operation::create_bucket::{CreateBucketError, CreateBucketOutput};
+use aws_sdk_s3::types::{BucketLocationConstraint, CreateBucketConfiguration};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 
 use tokio::sync::Semaphore;
 use tokio::time::sleep;
@@ -152,12 +159,14 @@ impl S3Store {
                 default_provider();
                 //DefaultCredentialsProvider::new().expect("failed to create credentials provider");
 
-            let region = config
+            /*let region = config
                 .region
                 .parse::<Region>()
                 .map_err(|e| make_input_err!("{}", e.to_string()))?;
             S3Client::new_with(dispatcher, credentials_provider, region)
-        };
+        };*/
+
+
         let jitter_amt = config.retry.jitter;
         S3Store::new_with_client_and_jitter(
             config,
