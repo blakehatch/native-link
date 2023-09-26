@@ -64,7 +64,7 @@ PACKAGES = {
     },
     "rusoto_signature": {
         "version": "0.48.0",
-    },
+    }, 
     "http": {
         "version": "^0.2",
     },
@@ -159,5 +159,11 @@ PACKAGES = {
     },
     "ctor": {
         "version": "0.2.3",
+    },
+    "aws-config": {
+        "version": "0.56.1", 
+    },
+    "aws-sdk-s3": {
+        "version": "0.31.2",
     },
 }

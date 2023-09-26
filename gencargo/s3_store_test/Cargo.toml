@@ -19,6 +19,8 @@ path = "../../cas/store/tests/s3_store_test.rs"
 doctest = false
 
 [dependencies]
+aws-config = { workspace = true }
+aws-sdk-s3 = { workspace = true }
 futures = { workspace = true }
 http = { workspace = true }
 pretty_assertions = { workspace = true }

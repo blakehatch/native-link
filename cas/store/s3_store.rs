@@ -26,7 +26,8 @@ use futures::TryStreamExt;
 use http::status::StatusCode;
 use lazy_static::lazy_static;
 use rand::{rngs::OsRng, Rng};
-use rusoto_core::credential::DefaultCredentialsProvider;
+//Replace these with aws-sdk-rust
+//use rusoto_core::credential::DefaultCredentialsProvider;
 use rusoto_core::request::{DispatchSignedRequest, DispatchSignedRequestFuture};
 use rusoto_core::{region::Region, ByteStream, HttpClient, HttpDispatchError, RusotoError};
 use rusoto_s3::{
@@ -35,6 +36,10 @@ use rusoto_s3::{
     PutObjectRequest, S3Client, UploadPartRequest, S3,
 };
 use rusoto_signature::signature::SignedRequest;
+
+//AWS SDK Replacements
+use aws_config::default_provider::credentials::default_provider;
+
 use tokio::sync::Semaphore;
 use tokio::time::sleep;
 use tokio_util::io::ReaderStream;
@@ -144,7 +149,8 @@ impl S3Store {
             let dispatcher = SHARED_CLIENT.lock().unwrap().clone();
             dispatcher.add_permits(additional_max_concurrent_requests);
             let credentials_provider =
-                DefaultCredentialsProvider::new().expect("failed to create credentials provider");
+                default_provider();
+                //DefaultCredentialsProvider::new().expect("failed to create credentials provider");
 
             let region = config
                 .region

@@ -20,6 +20,7 @@ use futures::executor::block_on;
 use futures::future::ready;
 use futures::FutureExt;
 use http::status::StatusCode;
+// Replace rusoto with AWS SDK
 use rusoto_core::{
     request::{HttpDispatchError, HttpResponse},
     signature::{SignedRequest, SignedRequestPayload},
@@ -27,6 +28,9 @@ use rusoto_core::{
 };
 use rusoto_mock::{MockCredentialsProvider, MockRequestDispatcher, MultipleMockRequestDispatcher};
 use rusoto_s3::S3Client;
+
+
+
 use tokio::io::{AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use tokio::join;
 use tokio::sync::mpsc::{unbounded_channel, UnboundedSender};
