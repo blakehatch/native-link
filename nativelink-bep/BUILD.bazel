@@ -1,0 +1,29 @@
+load(
+    "@rules_rust//rust:defs.bzl",
+    "rust_doc",
+    "rust_doc_test",
+    "rust_library",
+)
+
+rust_library(
+    name = "nativelink-bep",
+    srcs = [
+        "src/bep_server.rs",
+        "src/lib.rs",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@crates//:bazel-bep",
+    ],
+)
+
+rust_doc(
+    name = "docs",
+    crate = ":nativelink-bep",
+)
+
+rust_doc_test(
+    name = "doc_test",
+    timeout = "short",
+    crate = ":nativelink-bep",
+)

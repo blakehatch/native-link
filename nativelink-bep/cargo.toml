@@ -1,0 +1,7 @@
+[package]
+name = "nativelink-bep"
+version = "0.3.0"
+edition = "2021"
+
+[dependencies]
+bazel-bep = { version = "0.2.2", features = ["server"] }
