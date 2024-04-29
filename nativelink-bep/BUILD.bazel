@@ -13,7 +13,13 @@ rust_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
+        "//nativelink-error",
+        "@crates//:arc-cell",
         "@crates//:bazel-bep",
+        "@crates//:futures",
+        "@crates//:tokio",
+        "@crates//:tokio-stream",
+        "@crates//:tonic",
     ],
 )
 

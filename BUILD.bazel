@@ -13,6 +13,7 @@ rust_binary(
         "src/bin/nativelink.rs",
     ],
     deps = [
+        "//nativelink-bep",
         "//nativelink-config",
         "//nativelink-error",
         "//nativelink-proto",

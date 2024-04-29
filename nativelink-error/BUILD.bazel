@@ -13,5 +13,6 @@ rust_library(
         "@crates//:prost-types",
         "@crates//:tokio",
         "@crates//:tonic",
+        "@crates//:tracing",
     ],
 )

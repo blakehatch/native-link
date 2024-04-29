@@ -25,6 +25,7 @@ use futures::FutureExt;
 use hyper::server::conn::Http;
 use hyper::{Response, StatusCode};
 use mimalloc::MiMalloc;
+use nativelink_bep::bep_server::BepServer;
 use nativelink_config::cas_server::{
     CasConfig, CompressionAlgorithm, GlobalConfig, ListenerConfig, ServerConfig, WorkerConfig,
 };
@@ -64,7 +65,7 @@ use tokio_rustls::rustls::server::WebPkiClientVerifier;
 use tokio_rustls::rustls::{RootCertStore, ServerConfig as TlsServerConfig};
 use tokio_rustls::TlsAcceptor;
 use tonic::codec::CompressionEncoding;
-use tonic::transport::Server as TonicServer;
+use tonic::transport::{Server as TonicServer, Server};
 use tower::util::ServiceExt;
 use tracing::{error_span, event, Instrument, Level};
 use tracing_subscriber::filter::{EnvFilter, LevelFilter};
@@ -106,6 +107,16 @@ async fn inner_main(
     let health_registry_builder = Arc::new(AsyncMutex::new(HealthRegistryBuilder::new(
         "nativelink".into(),
     )));
+
+    let addr = "127.0.0.1:50055".parse()?;
+    let bep_server = BepServer::new("redis://127.0.0.1:6379").unwrap();
+
+    println!("BepServer listening on {}", addr);
+
+    Server::builder()
+        .add_service(bep_server)
+        .serve(addr)
+        .await?;
 
     let store_manager = Arc::new(StoreManager::new());
     {
